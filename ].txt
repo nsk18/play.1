@@ -1,0 +1,109 @@
+var bg = createSprite(80,80,400,400);
+bg.setAnimation("wyndon.png");
+bg.scale = 2;
+bg.x = bg.width/2;
+bg.velocityX=-3;
+
+
+var ballGroup = createGroup();
+var poipoleGroup = createGroup();
+var treeckoGroup = createGroup();
+var sobbleGroup = createGroup();
+var frokieGroup = createGroup();
+
+function ball (){
+  var ball1 = createSprite(355,215,11,1);
+ball1.setAnimation( "premier_ball.png");
+ball1.y=bow.y;
+    ball1.velocityX = -5;
+  ball1.lifetime = 400/3;
+  ballGroup.add(ball1);
+
+}
+
+function poipole (){
+  var poipole1 = createSprite(randomNumber(30,230),400,2,1);
+  poipole1.setAnimation("poipole.png");
+  poipole1.velocityY=-3;
+  poipole1.lifetime = 400/3;
+  poipoleGroup.add(poipole1);
+}
+function treecko(){
+  var treecko1 = createSprite(randomNumber(30,230),400,2,1);
+  treecko1.setAnimation("252Treecko.png");
+  treecko1.velocityY=-3;
+  treecko1.lifetime = 400/3;
+  treeckoGroup.add(treecko1);
+}
+function sobble (){
+  var sobble1 = createSprite(randomNumber(30,230),400,2,1);
+  sobble1.setAnimation("1200px-816Sobble.png");
+  sobble1.velocityY=-3;
+  sobble1.lifetime = 400/3;
+  sobbleGroup.add(sobble1);
+}
+function frokie (){
+  var frokie1 = createSprite(randomNumber(30,230),400,2,1);
+  frokie1.setAnimation("1200px-656Frokie.png");
+  frokie1.velocityY=-3;
+  frokie1.lifetime = 400/3;
+  frokieGroup.add(frokie1);
+}
+
+var score = 0;
+
+fill("white");
+textSize(18);
+
+function draw(){
+  background("white");
+  if (bg.x <0){
+    bg.x = bg.width/2;
+  }
+  bow.y = World.mouseY;
+if (keyDown("space")){
+  ball();
+}
+
+
+var rand = randomNumber(1,4);
+if(World.frameCount%80===0){
+  if (rand===1){
+    poipole()
+  }
+  else if (rand===2){
+    treecko();
+  }
+  else if (rand===3){
+    sobble();
+  }
+  else {
+    frokie();
+  }
+}
+if (ballGroup.isTouching(poipoleGroup)){
+  ballGroup.destroyEach();
+  poipoleGroup.destroyEach();
+  score=score+10;
+}
+if (ballGroup.isTouching(treeckoGroup)){
+  ballGroup.destroyEach();
+  treeckoGroup.destroyEach();
+  score=score+10;
+}
+if (ballGroup.isTouching(sobbleGroup)){
+  ballGroup.destroyEach();
+  sobbleGroup.destroyEach();
+  score=score+10;
+}
+if (ballGroup.isTouching(frokieGroup)){
+  ballGroup.destroyEach();
+  frokieGroup.destroyEach();
+  score=score+10;
+}
+  
+  drawSprites();
+  text("Score:"+ score,300,40);
+}
+
+
